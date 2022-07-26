@@ -36,3 +36,11 @@ services:
   redis:
     image: redis
     restart: always
+
+  webapp:
+    restart: always             # рестартовать - всегда
+    build:                      # как собираем контейнер
+      context: ./webapp         # в webapp находится Dockerfile и все необходимые файлы, помещаемые в образ
+    ports:                      # какие порты будут обращены наружу, чтобы могли обратиться к приложению
+      - "8000:8000"             # стандартный порт для web-разработки на Django
+    command: ["python", "./app/manage.py", "runserver", "0.0.0.0:8000"] # запуск можно скопировать из Dockerfile
